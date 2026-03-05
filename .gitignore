@@ -19,3 +19,10 @@ transcripts/
 # OS
 .DS_Store
 Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code — local tool, never commit
+.claude/
