@@ -22,7 +22,7 @@ Desktop tray-приложение для транскрибации голосо
 - [ ] Phase 5: CI/CD
 - [ ] Phase 6: Deploy
 
-**Active phase**: Phase 1 — Fix CI + тестовая инфраструктура
+**Active phase**: Phase 3 — Архитектурные правки + UI/UX улучшения
 
 ---
 
@@ -30,14 +30,13 @@ Desktop tray-приложение для транскрибации голосо
 
 Tasks in priority order. Check off when done.
 
-- [ ] Phase 1: исправить CI — убрать `src/`, правильные пути для плоской структуры
-- [ ] Phase 1: добавить ruff, mypy, pytest в pyproject.toml dev deps
-- [ ] Phase 1: добавить pre-commit конфиг (ruff + mypy)
-- [ ] Phase 2: написать тесты — unit (transcriber._parse_response, storage) + integration (FastAPI endpoints)
-- [ ] Phase 3: архитектурные правки — HOST/PORT из config, startup валидация API key, __init__.py
+- [ ] Phase 3: HOST 0.0.0.0 → 127.0.0.1 в config.py (P1)
+- [ ] Phase 3: PORT/HOST в tray.py — импортировать из config вместо дублирования (P1)
+- [ ] Phase 3: валидация OPENROUTER_API_KEY при старте приложения (P1)
 - [ ] Phase 4: UI/UX улучшения (обсудить отдельно)
 
 **Completed (most recent first):**
+- [x] Phase 1: CI исправлен, тесты 42/42, coverage 87.8%, ruff+mypy чистые — ec002aa — 2026-03-06
 - [x] Phase 0: cleanup — удалены битые артефакты, зафиксированы .github/ и dev/ — e67691b — 2026-03-06
 - [x] feat: v0.3.0 — tray app, pywebview, retry logic, save failed audio — 858d1a7
 
@@ -73,10 +72,9 @@ Tasks in priority order. Check off when done.
 
 ## Next Session Plan
 
-1. Fix CI: исправить `ci.yml` под плоскую структуру (без `src/`)
-2. Добавить ruff + mypy + pytest в `pyproject.toml` dev deps
-3. Настроить pre-commit
-4. Написать первые unit-тесты для `transcriber._parse_response`
+1. Phase 3: HOST/PORT — убрать дублирование в tray.py, 0.0.0.0→127.0.0.1
+2. Phase 3: Startup валидация API key
+3. Phase 4: UI/UX — обсудить с пользователем конкретные улучшения
 
 ---
 
