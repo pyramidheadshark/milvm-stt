@@ -22,7 +22,7 @@ Desktop tray-приложение для транскрибации голосо
 - [ ] Phase 5: CI/CD
 - [ ] Phase 6: Deploy
 
-**Active phase**: Phase 0 — Восстановление проекта и аудит
+**Active phase**: Phase 1 — Fix CI + тестовая инфраструктура
 
 ---
 
@@ -30,27 +30,31 @@ Desktop tray-приложение для транскрибации голосо
 
 Tasks in priority order. Check off when done.
 
-- [ ] Phase 0: аудит всех файлов — удалить битые артефакты, очистить `{services,templates,transcripts}` папку
-- [ ] Phase 0: определить актуальную версию кода (v0.3.0, последний коммит `858d1a7`)
-- [ ] Phase 1: создать design-doc.md на основе существующего кода
-- [ ] Phase 4: добавить pytest, написать тесты (unit + integration)
-- [ ] Phase 5: настроить GitHub Actions CI (minimal profile уже создан)
-- [ ] Архитектурные улучшения UI/UX по результатам аудита
+- [ ] Phase 1: исправить CI — убрать `src/`, правильные пути для плоской структуры
+- [ ] Phase 1: добавить ruff, mypy, pytest в pyproject.toml dev deps
+- [ ] Phase 1: добавить pre-commit конфиг (ruff + mypy)
+- [ ] Phase 2: написать тесты — unit (transcriber._parse_response, storage) + integration (FastAPI endpoints)
+- [ ] Phase 3: архитектурные правки — HOST/PORT из config, startup валидация API key, __init__.py
+- [ ] Phase 4: UI/UX улучшения (обсудить отдельно)
 
 **Completed (most recent first):**
-- [x] Deploy ml-claude-infra module — 2026-03-06
+- [x] Phase 0: cleanup — удалены битые артефакты, зафиксированы .github/ и dev/ — e67691b — 2026-03-06
 - [x] feat: v0.3.0 — tray app, pywebview, retry logic, save failed audio — 858d1a7
 
 ---
 
 ## Known Issues and Solutions
 
-### Повреждённая папка `{services,templates,transcripts}`
+### P0-проблемы из аудита (требуют fix в Phase 1)
 
-**Problem**: В корне проекта есть папка с именем `{services,templates,transcripts}` — артефакт неудачного brace expansion в bash
-**Root cause**: Вероятно, команда типа `mkdir {services,templates,transcripts}` выполнена в Windows cmd/PowerShell, где brace expansion не работает
-**Solution**: Проверить содержимое, если пустая — удалить
-**Date**: 2026-03-06
+**CI сломан**: `ci.yml` запускает `mypy src/` и `pytest --cov=src` — папки `src/` нет, структура плоская.
+**Нет dev-зависимостей**: `pyproject.toml` dev group содержит только `pyinstaller`. Нет ruff, mypy, pytest.
+
+### P1-проблемы (Phase 3)
+
+- `HOST = "0.0.0.0"` в config.py — должен быть `127.0.0.1` для desktop app
+- `PORT` дублируется в `tray.py` без импорта из `config.py`
+- Нет валидации `OPENROUTER_API_KEY` при старте приложения
 
 ---
 
@@ -69,13 +73,10 @@ Tasks in priority order. Check off when done.
 
 ## Next Session Plan
 
-> Следующая сессия — восстановление и аудит проекта.
-
-1. Прочитать все файлы проекта — оценить состояние кода
-2. Удалить битые артефакты (`{services,templates,transcripts}` папка, `__pycache__`, etc.)
-3. Ранжировать проблемы по критичности
-4. Составить план доработок (design-doc.md)
-5. Dist/ не трогать — там рабочие .exe
+1. Fix CI: исправить `ci.yml` под плоскую структуру (без `src/`)
+2. Добавить ruff + mypy + pytest в `pyproject.toml` dev deps
+3. Настроить pre-commit
+4. Написать первые unit-тесты для `transcriber._parse_response`
 
 ---
 
