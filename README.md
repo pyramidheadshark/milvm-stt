@@ -1,5 +1,8 @@
 # Voice Transcriber
 
+[![CI](https://github.com/pyramidheadshark/milvm-stt/actions/workflows/ci.yml/badge.svg)](https://github.com/pyramidheadshark/milvm-stt/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/pyramidheadshark/milvm-stt/graph/badge.svg)](https://codecov.io/gh/pyramidheadshark/milvm-stt)
+
 Локальное приложение для мгновенной транскрибации голосовых заметок через [OpenRouter](https://openrouter.ai/) + Google Gemini.
 Записывает аудио прямо в браузере, транскрибирует за несколько секунд, сохраняет историю локально.
 
