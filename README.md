@@ -25,26 +25,17 @@ git clone https://github.com/pyramidheadshark/milvm-stt.git
 cd milvm-stt
 
 uv sync
-cp .env.example .env
-# Открыть .env и указать OPENROUTER_API_KEY
-
 make tray        # трей-приложение (Linux / macOS)
 make run         # только веб-режим (браузер)
 ```
 
-**Windows** — скачать `.exe` из [Releases](https://github.com/pyramidheadshark/milvm-stt/releases/latest),
-положить `.env` рядом с `.exe` и запустить.
+При первом запуске без API ключа автоматически откроется панель настроек (⚙).
+Либо создать `.env` вручную — см. раздел [Переменные `.env`](#переменные-env).
+
+**Windows** — скачать `.exe` из [Releases](https://github.com/pyramidheadshark/milvm-stt/releases/latest) и запустить.
+При первом запуске автоматически откроется панель настроек — ввести API ключ и сохранить.
 
 Или запустить из исходников: `uv run python tray.py`
-
----
-
-## Настройка API ключа
-
-Два способа:
-
-1. **В приложении**: кнопка ⚙ в заголовке → ввести ключ → Save settings (применяется сразу, без перезапуска)
-2. **Через `.env`**: создать `.env` рядом с `.exe`, указать `OPENROUTER_API_KEY=sk-or-v1-...`
 
 ---
 

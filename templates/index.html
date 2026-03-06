@@ -1043,6 +1043,14 @@
   });
 
   initHistory();
+
+  (async () => {
+    try {
+      const resp = await fetch('/settings');
+      const data = await resp.json();
+      if (!data.api_key_set) toggleSettings();
+    } catch (_) {}
+  })();
 </script>
 </body>
 </html>
